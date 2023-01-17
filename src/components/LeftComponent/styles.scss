@@ -1,0 +1,125 @@
+@import '../../styles/variables.scss';
+
+.ContainerLeft{
+    width: 50%;
+    height: 100%;
+    border-radius: 15px;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .inputInfo{
+        .inputTitle {
+            font-size: 12px;
+            font-weight: 700;
+            color: $gray;
+            margin-bottom: 3px;
+        }
+        .inputDiv {
+            position: relative;
+            img {
+                width: 10px;
+                height: 12px;
+                top: 11px;
+                left: 12px;
+                position: absolute;
+            }
+            input {
+                background-color: $backgroundInput;
+                border: none;
+                width: 100%;
+                height: 35px;
+                text-align: right;
+                border-radius: 2px;
+                outline: none;
+                font-size: 18px;
+                font-weight: 700;
+                color: $darkGreen;
+                &::placeholder {
+                    color: #9EBBBD;
+                }
+                &:focus{
+                    outline: 2px solid $mediumGreen;
+                }
+                
+            }
+        }
+
+        .gridNumbers {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 31% 31% 31%;
+            row-gap: 10px;
+            column-gap: 10px;
+
+            button.btnNumber {
+                height: 35px;
+                background-color: $darkGreen;
+                color: #ffffff;
+                font-size: 15px;
+                font-weight: 700;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            button.active {
+                background-color: $mediumGreen;
+                color: $darkGreen;
+            }
+
+            input {
+                background-color: $backgroundInput;
+                border: none;
+                height: 35px;
+                text-align: center;
+                border-radius: 3px;
+                outline: none;
+                font-size: 15px;
+                font-weight: 700;
+                color: $darkGreen;
+                
+                &::placeholder {
+                    color: #9EBBBD;
+                }
+                &:focus{
+                    outline: 2px solid $mediumGreen;
+                }
+                
+            }
+        }
+    }
+}
+
+
+@media (max-width:800px) {
+    .ContainerLeft {
+        width: 100%;
+        padding: 10px 10px;
+
+        .inputDiv {
+            input {
+                height: 30px;
+                font-size: 16px;
+            }
+        }
+
+        .inputInfo{
+            .inputDiv {
+                input {
+    
+                    &::placeholder {
+                        padding-right: 10px;
+                    }
+
+                    
+                }
+            }
+            .gridNumbers {
+                grid-template-columns: 50% 50%;
+        
+            }
+        }
+
+    }
+}
