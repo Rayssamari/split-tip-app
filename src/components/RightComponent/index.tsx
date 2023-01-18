@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import './styles.scss';
+import { context } from '../../contexts/context';
 
 export const RightComponent = () => {
+  const { state } = useContext(context);
+
   return (
     <div className='ContainerRight'>
         <div className='tipContainer'>
@@ -10,7 +14,7 @@ export const RightComponent = () => {
                     <span className='subtitle'>/ person</span>
                 </div>
                 <div className='TipAmountValue'>
-                    <span>$0.00</span>
+                    <span>${state.tipAmount.resultTipAmount}</span>
                 </div>
             </div>
             <div className='TipAmount'>
@@ -19,7 +23,7 @@ export const RightComponent = () => {
                     <span className='subtitle'>/ person</span>
                 </div>
                 <div className='TipAmountValue'>
-                    <span>$0.00</span>
+                    <span>${state.tipAmount.resultTotalAmount}</span>
                 </div>
             </div>
         </div>

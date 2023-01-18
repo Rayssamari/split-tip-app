@@ -1,32 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import './styles.scss';
 import dollarImg from '../../assets/images/icon-dollar.svg';
 import personImg from '../../assets/images/icon-person.svg';
 import { TipPercentButton } from '../TipPercentButton';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { useDispatch } from 'react-redux';
-import { setBillValue, setNumberOfPeople, setTip, setTipCustom} from '../../redux/reducers/tipAmoutReducer';
+import {context} from '../../contexts/context'
 
 export const LeftComponent = () => {
-    const tipAmount = useSelector((state: RootState) => state.tipAmount);
-    const dispatch = useDispatch();
+    const [billValue, setBillValue] = useState<number | null>(null);
+    const [numberOfPeople, setNumberOfPeople] = useState<number | null>(null); ;
+    const [tipValue, setTipValue] = useState<number | null>(null); 
+    const [customTipValue, setCustomTipValue] = useState<number | null>(null);
+
+    const {state, dispatch} = useContext(context);
+
     const tipValues = [5, 10, 15, 25, 50]; 
+    
+    useEffect(() => {
+        if(billValue !== null && numberOfPeople !== null) {
+            if(tipValue !== null) {
+                dispatch({
+                    type: 'TIP_AMOUNT_CALCULATOR',
+                    payload: {
+                        billValue: billValue,
+                        numberOfPeople: numberOfPeople,
+                        tipValue: tipValue
+                    }
+                })
+            }
+            else if (customTipValue !== null ) {
+                dispatch({
+                    type: 'TIP_AMOUNT_CUSTOM_CALCULATOR',
+                    payload: {
+                        billValue: billValue,
+                        numberOfPeople: numberOfPeople,
+                        tipCustomValue: customTipValue
+                    }
+                })
+            }
+        }
+    }, [billValue, numberOfPeople])
 
-    const handleBillInput = (e:React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setBillValue(e.target.value))
-    }
-
-    const handleNumberPeopleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setNumberOfPeople(e.target.value))
-    }
-
-    const handleTip = (e:React.ChangeEvent<HTMLButtonElement>) => {
-        dispatch(setTip(e.target.value))
-    }
-
-    const handleTipCustom = (e:React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setTipCustom(e.target.value))
+    const handleBillValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setBillValue(parseFloat(e.target.value))
     }
 
   return (
@@ -37,8 +52,8 @@ export const LeftComponent = () => {
                 <input 
                     type="number" 
                     placeholder='0' 
-                    value={tipAmount.billValue}
-                    onChange={handleBillInput}
+                    value={billValue === null ? ' ' : billValue}
+                    onChange={handleBillValue}
                 />
                 <img src={dollarImg} alt='Icone Input' />
             </div>
@@ -49,16 +64,16 @@ export const LeftComponent = () => {
                 {tipValues.map((tip, index) => ( 
                     <TipPercentButton 
                         percent={tip} 
-                        onSelect={(e) => dispatch(setTip(tipAmount.tip))} 
-                        selected={tip===tipAmount.tip} 
+                        onSelect={setTipValue} 
+                        selected={tip===tipValue} 
                         key={index}
                     /> 
                 ))} 
                 <input 
                     type="number" 
                     placeholder='Custom' 
-                    value={tipAmount.tipCustom}
-                    onChange={handleTipCustom}
+                    value={customTipValue === null ? ' ' : customTipValue}
+                    onChange={(e)=>setCustomTipValue(parseFloat(e.target.value))}
                 />
             </div>
         </div>
@@ -68,8 +83,8 @@ export const LeftComponent = () => {
                 <input 
                     type="number" 
                     placeholder='0' 
-                    value={tipAmount.numberOfPeople} 
-                    onChange={handleNumberPeopleInput}
+                    value={numberOfPeople === null ? ' ' : numberOfPeople} 
+                    onChange={(e)=>setNumberOfPeople(parseFloat(e.target.value))}
                 />
                 <img src={personImg} alt='Icone Input' />
             </div>
