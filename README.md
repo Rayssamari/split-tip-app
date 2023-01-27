@@ -1,6 +1,6 @@
-![SplipTipApp](./assets/final%20images/split%20tip%20app.png "Spli  Tip App")
+![SplipTipApp](./src/assets/final%20images/split%20tip%20app.png "Spli  Tip App")
 
-![SplipTipApp](./assets/final%20images/split%20app%20working.png "Spli  Tip App")
+![SplipTipApp](./src//assets/final%20images/split%20app%20working.png "Spli  Tip App")
 
 # SPLIT TIP APP
 
