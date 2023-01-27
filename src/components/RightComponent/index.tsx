@@ -1,9 +1,9 @@
-import { useContext } from 'react';
 import './styles.scss';
+import { useContext } from 'react';
 import { context } from '../../contexts/context';
 
 export const RightComponent = () => {
-  const { state } = useContext(context);
+    const {tipAmountPerPerson, tipAmountValuePerPerson, resetSlipTipApp}= useContext(context);
 
   return (
     <div className='ContainerRight'>
@@ -14,7 +14,7 @@ export const RightComponent = () => {
                     <span className='subtitle'>/ person</span>
                 </div>
                 <div className='TipAmountValue'>
-                    <span>${state.tipAmount.resultTipAmount}</span>
+                    <span>{`$ ${tipAmountPerPerson()}`}</span>
                 </div>
             </div>
             <div className='TipAmount'>
@@ -23,12 +23,12 @@ export const RightComponent = () => {
                     <span className='subtitle'>/ person</span>
                 </div>
                 <div className='TipAmountValue'>
-                    <span>${state.tipAmount.resultTotalAmount}</span>
+                    <span>{`$ ${tipAmountValuePerPerson()}`}</span>
                 </div>
             </div>
         </div>
         <div>
-            <button className='buttonReset'>RESET</button>
+            <button className='buttonReset' onClick={resetSlipTipApp}>RESET</button>
         </div>
     </div>
   )
